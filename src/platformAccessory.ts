@@ -25,6 +25,7 @@ export class ExamplePlatformAccessory {
     service.getCharacteristic(platform.Characteristic.TargetHeatingCoolingState)
       .onGet(async () => state)
       .onSet(async (value) => {
+        platform.log.info('Called TargetHeatingCoolingState.onSet()');
         state = value;
         service.getCharacteristic(platform.Characteristic.CurrentHeatingCoolingState).updateValue(value);
       })
@@ -41,8 +42,6 @@ export class ExamplePlatformAccessory {
       });
 
     service.getCharacteristic(platform.Characteristic.TemperatureDisplayUnits)
-      .onGet(async () => {
-        return platform.Characteristic.TemperatureDisplayUnits.CELSIUS;
-      });
+      .onGet(async () => platform.Characteristic.TemperatureDisplayUnits.CELSIUS);
   }
 }
